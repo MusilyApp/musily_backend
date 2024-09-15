@@ -142,7 +142,4 @@ yarn.lock
 # SvelteKit build / generate output
 .svelte-kit
 
-
-# Project
-certs
 # End of https://www.toptal.com/developers/gitignore/api/node

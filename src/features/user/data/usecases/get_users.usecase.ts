@@ -2,9 +2,9 @@ import { DataRequestArgs } from '../../../../core/domain/types/data_request.type
 import { PaginatedResultOutput } from '../../../../core/domain/types/pagination.types';
 import { IUserEntity } from '../../domain/entities/user.entity';
 import { IUserRepository } from '../../domain/repositories/user.respository';
-import { IGetUsersUseCase } from '../../domain/usecases/get_users.usecase';
+import { IGetUsersUsecase } from '../../domain/usecases/get_users.usecase';
 
-export class GetUsersUseCase implements IGetUsersUseCase {
+export class GetUsersUsecase implements IGetUsersUsecase {
   constructor(private userRepository: IUserRepository) {}
   async exec(
     dataRequest: DataRequestArgs,

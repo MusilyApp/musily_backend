@@ -2,10 +2,10 @@ import { IEncryptAdapter } from '../../../../core/domain/adapters/encrypt.adapte
 import { IUpdateUserDTO } from '../../domain/dtos/update_user_dto';
 import { IUserEntity } from '../../domain/entities/user.entity';
 import { IUserRepository } from '../../domain/repositories/user.respository';
-import { IUpdateUserUseCase } from '../../domain/usecases/update_user.usecase';
+import { IUpdateUserUsecase } from '../../domain/usecases/update_user.usecase';
 import { UserNotFoundError } from '../errors/user_not_found.error';
 
-export class UpdateUserUseCase implements IUpdateUserUseCase {
+export class UpdateUserUsecase implements IUpdateUserUsecase {
   constructor(
     private userRepository: IUserRepository,
     private encryptAdapter: IEncryptAdapter,

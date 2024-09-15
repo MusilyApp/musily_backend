@@ -4,10 +4,10 @@ import {
   Response,
 } from '../../../../core/domain/adapters/router.adapter';
 import { AppController } from '../../../../core/presenter/controllers/app_controller';
-import { IGetUserUseCase } from '../../domain/usecases/get_user.usecase';
+import { IGetUserUsecase } from '../../domain/usecases/get_user.usecase';
 
 export class GetUserController extends AppController {
-  constructor(private getUserUseCase: IGetUserUseCase) {
+  constructor(private getUserUsecase: IGetUserUsecase) {
     super();
   }
   async controllerBusiness(req: Request, res: Response): Promise<void> {
@@ -15,7 +15,7 @@ export class GetUserController extends AppController {
     if (!id) {
       throw new InvalidRequestError();
     }
-    const user = await this.getUserUseCase.exec(id);
+    const user = await this.getUserUsecase.exec(id);
     return res.send(200, user);
   }
 }

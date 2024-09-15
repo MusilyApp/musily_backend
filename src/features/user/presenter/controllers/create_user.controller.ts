@@ -5,10 +5,10 @@ import {
 } from '../../../../core/domain/adapters/router.adapter';
 import { AppController } from '../../../../core/presenter/controllers/app_controller';
 import { ICreateUserDTO } from '../../domain/dtos/create_user_dto';
-import { ICreateUserUseCase } from '../../domain/usecases/create_user.usecase';
+import { ICreateUserUsecase } from '../../domain/usecases/create_user.usecase';
 
 export class CreateUserController extends AppController {
-  constructor(private createUserUseCase: ICreateUserUseCase) {
+  constructor(private createUserUsecase: ICreateUserUsecase) {
     super();
   }
   async controllerBusiness(req: Request, res: Response): Promise<void> {
@@ -35,7 +35,7 @@ export class CreateUserController extends AppController {
       surname: surname,
       verifiedEmail: verifiedEmail ?? false,
     };
-    const createdUser = await this.createUserUseCase.exec(createUserDTO);
+    const createdUser = await this.createUserUsecase.exec(createUserDTO);
     return res.send(201, createdUser);
   }
 }

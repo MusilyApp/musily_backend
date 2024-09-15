@@ -4,10 +4,10 @@ import {
   Response,
 } from '../../../../core/domain/adapters/router.adapter';
 import { AppController } from '../../../../core/presenter/controllers/app_controller';
-import { IUpdateUserUseCase } from '../../domain/usecases/update_user.usecase';
+import { IUpdateUserUsecase } from '../../domain/usecases/update_user.usecase';
 
 export class UpdateUserController extends AppController {
-  constructor(private updateUserUseCase: IUpdateUserUseCase) {
+  constructor(private updateUserUsecase: IUpdateUserUsecase) {
     super();
   }
   async controllerBusiness(req: Request, res: Response): Promise<void> {
@@ -15,7 +15,7 @@ export class UpdateUserController extends AppController {
     if (!id) {
       throw new InvalidRequestError();
     }
-    const updatedUser = await this.updateUserUseCase.exec(id, req.body);
+    const updatedUser = await this.updateUserUsecase.exec(id, req.body);
     return res.send(200, updatedUser);
   }
 }

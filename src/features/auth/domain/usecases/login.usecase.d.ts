@@ -5,6 +5,6 @@ export type LoginOutput = {
   user: IUserEntity;
 };
 
-export interface ILoginUseCase {
+export interface ILoginUsecase {
   exec(email: string, password: string): Promise<Partial<LoginOutput>>;
 }

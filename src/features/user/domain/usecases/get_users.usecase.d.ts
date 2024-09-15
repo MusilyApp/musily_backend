@@ -2,7 +2,7 @@ import { DataRequestArgs } from '../../../../core/domain/types/data_request.type
 import { PaginatedResultOutput } from '../../../../core/domain/types/pagination.types';
 import { IUserEntity } from '../entities/user.entity';
 
-export interface IGetUsersUseCase {
+export interface IGetUsersUsecase {
   exec(
     dataRequest: DataRequestArgs,
   ): Promise<PaginatedResultOutput<IUserEntity>>;

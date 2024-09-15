@@ -1,5 +1,5 @@
 import { IUserEntity } from '../entities/user.entity';
 
-export interface IGetUserUseCase {
+export interface IGetUserUsecase {
   exec(id: string): Promise<IUserEntity>;
 }

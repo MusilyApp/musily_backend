@@ -3,15 +3,15 @@ import {
   Response,
 } from '../../../../core/domain/adapters/router.adapter';
 import { AppController } from '../../../../core/presenter/controllers/app_controller';
-import { IGetUsersUseCase } from '../../domain/usecases/get_users.usecase';
+import { IGetUsersUsecase } from '../../domain/usecases/get_users.usecase';
 
 export class GetUsersController extends AppController {
-  constructor(private getUsersUseCase: IGetUsersUseCase) {
+  constructor(private getUsersUsecase: IGetUsersUsecase) {
     super();
   }
   async controllerBusiness(req: Request, res: Response): Promise<void> {
     const { page, limit, searchQuery } = req.query;
-    const users = await this.getUsersUseCase.exec({
+    const users = await this.getUsersUsecase.exec({
       pagination: {
         limit: limit ?? 10,
         page: page ?? 1,

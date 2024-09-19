@@ -1,5 +1,5 @@
-import { AppModelAdapter } from "../../../../core/adapters/app_model.adapter";
-import { IUserEntity } from "../../domain/entities/user.entity";
+import { AppModelAdapter } from '../../../../core/adapters/app_model.adapter';
+import { IUserEntity } from '../../domain/entities/user.entity';
 
 export const UserModel = new AppModelAdapter<IUserEntity>('users', {
   id: {

@@ -4,5 +4,5 @@ export interface PlaylistEntity {
   id: string;
   title: string;
   track_count: string;
-  artist: ArtistEntity;
+  artist: ArtistEntity | null;
 }

@@ -1,3 +1,3 @@
 export interface IRemoveTrackFromPlaylistUsecase {
-  exec(trackId: string, playlistId: string): Promise<void>;
+  exec(docummentId: string): Promise<void>;
 }

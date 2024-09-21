@@ -1,6 +1,11 @@
-export interface LibraryItemEntity<T> {
+import { AlbumEntity } from './album.entity';
+import { ArtistEntity } from './artist.entity';
+import { PlaylistEntity } from './playlist.entity';
+
+export interface LibraryItemEntity {
   id: string;
-  type: 'playlist' | 'album' | 'artist';
   lastTimePlayed: Date;
-  value: T;
+  artist?: ArtistEntity;
+  album?: AlbumEntity;
+  playlist?: PlaylistEntity;
 }

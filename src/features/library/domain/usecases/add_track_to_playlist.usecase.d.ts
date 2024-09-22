@@ -1,5 +1,5 @@
-import { TrackEntity } from '../../../data_fetch/domain/entities/track.entity';
+import { UserTrackEntity } from '../entities/user_track.entity';
 
 export interface IAddTrackToPlaylistUsecase {
-  exec(track: TrackEntity, playlistId: string): Promise<void>;
+  exec(track: UserTrackEntity): Promise<void>;
 }

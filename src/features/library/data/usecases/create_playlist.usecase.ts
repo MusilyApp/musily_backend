@@ -8,9 +8,14 @@ export class CreatePlaylistUsecase implements ICreatePlaylistUsecase {
       libraryRepository: ILibraryRepository;
     },
   ) {}
-  async exec(playlist: PlaylistEntity): Promise<PlaylistEntity> {
-    const createdPlaylist =
-      await this.props.libraryRepository.createPlaylist(playlist);
+  async exec(
+    playlist: PlaylistEntity,
+    userId: string,
+  ): Promise<PlaylistEntity> {
+    const createdPlaylist = await this.props.libraryRepository.createPlaylist(
+      playlist,
+      userId,
+    );
     return createdPlaylist;
   }
 }

@@ -46,27 +46,24 @@ export interface IAppModel<T extends IAppBaseModel> {
   find(
     filters?: AppModelFilter<T>,
     args?: { select?: AppModelSelection<T>; sort?: AppModelSort<T> },
-  ): Promise<Record<string, any>[]>;
+  ): Promise<T[]>;
   findOne(
     filters: AppModelFilter<T>,
     args?: {
       select?: AppModelSelection<T>;
     },
-  ): Promise<Record<string, any> | null>;
+  ): Promise<T | null>;
   findOneAndUpdate(
     filters: AppModelFilter<T>,
     updatedItem: T,
     args?: {
       select?: AppModelSelection<T>;
     },
-  ): Promise<Record<string, any> | null>;
-  findById(id: T['id']): Promise<Record<string, any> | null>;
+  ): Promise<T | null>;
+  findById(id: T['id']): Promise<T | null>;
   create(item: T): Promise<T>;
-  findByIdAndUpdate(
-    id: T['id'],
-    updatedItem: Partial<T>,
-  ): Promise<Record<string, any> | null>;
-  findByIdAndDelete(id: T['id']): Promise<Record<string, any> | null>;
+  findByIdAndUpdate(id: T['id'], updatedItem: Partial<T>): Promise<T | null>;
+  findByIdAndDelete(id: T['id']): Promise<T | null>;
   findPaginated(
     paginationArgs: PaginationArgs,
     filters?: AppModelFilter<T>,
@@ -74,5 +71,5 @@ export interface IAppModel<T extends IAppBaseModel> {
       sort?: AppModelSort<T>;
       select?: AppModelSelection<T>;
     },
-  ): Promise<PaginatedResultOutput<Record<string, any>>>;
+  ): Promise<PaginatedResultOutput<T>>;
 }

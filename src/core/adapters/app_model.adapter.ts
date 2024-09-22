@@ -13,12 +13,14 @@ import {
   PaginatedResultOutput,
   PaginationArgs,
 } from '../domain/types/pagination.types';
+import { IModelMapper } from '../domain/mappers/model_mapper';
 
 export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
   private model: Model<Document>;
 
   constructor(
     public modelName: string,
+    private modelMapper: IModelMapper<T>,
     modelDefinition: ModelDefinition<T>,
   ) {
     const schemaDefinition: Record<string, unknown> = {};
@@ -99,7 +101,7 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
       sort?: AppModelSort<T>;
       select?: AppModelSelection<T>;
     },
-  ): Promise<PaginatedResultOutput<Record<string, any>>> {
+  ): Promise<PaginatedResultOutput<T>> {
     const startIn = (paginationArgs.page - 1) * paginationArgs.limit;
     const length = await this.model
       .find(this.filterConverter(filters) ?? {})
@@ -111,7 +113,7 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
       .skip(startIn)
       .sort(this.sortConverter(args?.sort ?? { createdAt: 'desc' }));
     return {
-      items: items,
+      items: items.map((e) => this.modelMapper.fromJsonDataToEntity(e)),
       total: length,
     };
   }
@@ -121,12 +123,12 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
     args?: {
       select?: AppModelSelection<T>;
     },
-  ): Promise<Record<string, any> | null> {
+  ): Promise<T | null> {
     const item = await this.model
       .findOne(this.filterConverter(filters))
       .select(args?.select ?? '');
     if (item) {
-      return item.toObject();
+      return this.modelMapper.fromJsonDataToEntity(item.toObject());
     }
     return null;
   }
@@ -135,12 +137,12 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
     filters: AppModelFilter<T>,
     updatedItem: T,
     args?: { select?: AppModelSelection<T> | undefined } | undefined,
-  ): Promise<Record<string, any> | null> {
+  ): Promise<T | null> {
     const item = await this.model
       .findOneAndUpdate(this.filterConverter(filters), updatedItem)
       .select(args?.select ?? '');
     if (item) {
-      return item.toObject();
+      return this.modelMapper.fromJsonDataToEntity(item.toObject());
     }
     return null;
   }
@@ -148,18 +150,20 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
   async find(
     filters?: AppModelFilter<T>,
     args?: { select?: AppModelSelection<T>; sort?: AppModelSort<T> },
-  ): Promise<Record<string, any>[]> {
+  ): Promise<T[]> {
     const items = await this.model
       .find(this.filterConverter(filters))
       .select(this.selectionConverter(args?.select) ?? '')
       .sort(this.sortConverter(args?.sort ?? { createdAt: 'desc' }));
-    return items.map((item) => item.toObject());
+    return items.map((item) =>
+      this.modelMapper.fromJsonDataToEntity(item.toObject()),
+    );
   }
 
-  async findById(id: T['id']): Promise<Record<string, any> | null> {
+  async findById(id: T['id']): Promise<T | null> {
     const item = await this.model.findOne({ id: id });
     if (item) {
-      return item.toObject();
+      return this.modelMapper.fromJsonDataToEntity(item.toObject());
     }
     return null;
   }
@@ -172,19 +176,19 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
   async findByIdAndUpdate(
     id: T['id'],
     updatedItem: Partial<T>,
-  ): Promise<Record<string, any> | null> {
+  ): Promise<T | null> {
     const item = await this.model.findOneAndUpdate({ id }, updatedItem);
     const itemData = await this.model.findOne({ id });
-    if (item?.toObject()) {
-      return itemData;
+    if (itemData?.toObject()) {
+      return this.modelMapper.fromJsonDataToEntity(itemData?.toObject());
     }
     return null;
   }
 
-  async findByIdAndDelete(id: T['id']): Promise<Record<string, any> | null> {
+  async findByIdAndDelete(id: T['id']): Promise<T | null> {
     const deletedItem = await this.model.findOneAndDelete({ id: id });
-    if (deletedItem) {
-      return deletedItem?.toObject() ?? null;
+    if (deletedItem?.toObject()) {
+      return this.modelMapper.fromJsonDataToEntity(deletedItem?.toObject());
     }
     return null;
   }

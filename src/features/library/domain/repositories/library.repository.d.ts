@@ -6,7 +6,7 @@ import { UserTrackEntity } from '../entities/user_track.entity';
 export interface ILibraryRepository {
   getLibrary(userId: string): Promise<LibraryItemEntity[]>;
   getLibraryItem(id: string): Promise<LibraryItemEntity | null>;
-  addTrackToPlaylist(track: UserTrackEntity): Promise<void>;
+  addTracksToPlaylist(tracks: UserTrackEntity[]): Promise<void>;
   removeTrackFromPlaylist(docummentId: string): Promise<void>;
   createPlaylist(
     playlist: PlaylistEntity,

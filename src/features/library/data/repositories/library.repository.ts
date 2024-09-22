@@ -22,8 +22,8 @@ export class LibraryRepository implements ILibraryRepository {
     const libraryItem = await this.getLibraryItem(id);
     return libraryItem;
   }
-  async addTrackToPlaylist(track: UserTrackEntity): Promise<void> {
-    await this.props.userTrackModel.create(track);
+  async addTracksToPlaylist(tracks: UserTrackEntity[]): Promise<void> {
+    await this.props.userTrackModel.insertMany(tracks);
   }
   async removeTrackFromPlaylist(docummentId: string): Promise<void> {
     await this.props.userTrackModel.findByIdAndDelete(docummentId);

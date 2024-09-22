@@ -1,7 +1,10 @@
 import { AppModelAdapter } from '../../../../core/adapters/app_model.adapter';
+import { UserMapper } from '../../data/mappers/user.mapper';
 import { IUserEntity } from '../../domain/entities/user.entity';
 
-export const UserModel = new AppModelAdapter<IUserEntity>('users', {
+const userMapper = new UserMapper();
+
+export const UserModel = new AppModelAdapter<IUserEntity>('users', userMapper, {
   id: {
     type: String,
     required: true,

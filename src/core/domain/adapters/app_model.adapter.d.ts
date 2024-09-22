@@ -62,6 +62,7 @@ export interface IAppModel<T extends IAppBaseModel> {
   ): Promise<T | null>;
   findById(id: T['id']): Promise<T | null>;
   create(item: T): Promise<T>;
+  insertMany(items: T[]): Promise<void>;
   findByIdAndUpdate(id: T['id'], updatedItem: Partial<T>): Promise<T | null>;
   findByIdAndDelete(id: T['id']): Promise<T | null>;
   deleteMany(filters: AppModelFilter<T>): Promise<void>;

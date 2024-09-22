@@ -173,6 +173,10 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
     return item;
   }
 
+  async insertMany(items: T[]): Promise<void> {
+    await this.model.insertMany(items);
+  }
+
   async findByIdAndUpdate(
     id: T['id'],
     updatedItem: Partial<T>,

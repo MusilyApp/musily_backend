@@ -177,7 +177,7 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
     id: T['id'],
     updatedItem: Partial<T>,
   ): Promise<T | null> {
-    const item = await this.model.findOneAndUpdate({ id }, updatedItem);
+    await this.model.findOneAndUpdate({ id }, updatedItem);
     const itemData = await this.model.findOne({ id });
     if (itemData?.toObject()) {
       return this.modelMapper.fromJsonDataToEntity(itemData?.toObject());
@@ -191,5 +191,9 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
       return this.modelMapper.fromJsonDataToEntity(deletedItem?.toObject());
     }
     return null;
+  }
+
+  async deleteMany(filters: AppModelFilter<T>): Promise<void> {
+    await this.model.deleteMany(this.filterConverter(filters));
   }
 }

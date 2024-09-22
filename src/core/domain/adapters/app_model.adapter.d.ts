@@ -64,6 +64,7 @@ export interface IAppModel<T extends IAppBaseModel> {
   create(item: T): Promise<T>;
   findByIdAndUpdate(id: T['id'], updatedItem: Partial<T>): Promise<T | null>;
   findByIdAndDelete(id: T['id']): Promise<T | null>;
+  deleteMany(filters: AppModelFilter<T>): Promise<void>;
   findPaginated(
     paginationArgs: PaginationArgs,
     filters?: AppModelFilter<T>,

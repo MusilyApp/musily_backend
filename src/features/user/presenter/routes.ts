@@ -1,4 +1,3 @@
-import { CreateUserUsecase } from '../data/usecases/create_user.usecase';
 import { UserRepository } from '../data/repositories/user.respository';
 import { GetUsersController } from './controllers/get_users.controller';
 import { GetUsersUsecase } from '../data/usecases/get_users.usecase';

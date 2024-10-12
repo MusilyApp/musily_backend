@@ -19,7 +19,7 @@ export class LibraryRepository implements ILibraryRepository {
     return library;
   }
   async getLibraryItem(id: string): Promise<LibraryItemEntity | null> {
-    const libraryItem = await this.getLibraryItem(id);
+    const libraryItem = await this.props.libraryModel.findById(id);
     return libraryItem;
   }
   async addTracksToPlaylist(tracks: UserTrackEntity[]): Promise<void> {
@@ -63,8 +63,11 @@ export class LibraryRepository implements ILibraryRepository {
     await this.props.libraryModel.findByIdAndDelete(playlistId);
     await this.props.userTrackModel.deleteMany({ id: playlistId });
   }
-  async addToLibrary(libraryItem: LibraryItemEntity): Promise<void> {
-    await this.props.libraryModel.create(libraryItem);
+  async addToLibrary(
+    libraryItem: LibraryItemEntity,
+  ): Promise<LibraryItemEntity> {
+    const item = await this.props.libraryModel.create(libraryItem);
+    return item;
   }
   async removeFromLibrary(libraryItemId: string): Promise<void> {
     await this.props.libraryModel.findByIdAndDelete(libraryItemId);

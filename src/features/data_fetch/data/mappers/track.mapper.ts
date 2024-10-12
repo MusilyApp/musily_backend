@@ -1,51 +1,45 @@
 import { IModelMapper } from '../../../../core/domain/mappers/model_mapper';
 import { typeSafe } from '../../../../core/utils/type_safe.util';
-import { SimplifiedAlbumEntity } from '../../domain/entities/simplified_album.entity';
-import { SimplifiedArtistEntity } from '../../domain/entities/simplified_artist.entity';
-import { UserTrackEntity } from '../../domain/entities/user_track.entity';
-import { SimplifiedAlbumMapper } from './simplified_album.mapper';
-import { SimplifiedArtistMapper } from './simplified_artist.mapper';
+import { SimplifiedAlbumMapper } from '../../../library/data/mappers/simplified_album.mapper';
+import { SimplifiedArtistMapper } from '../../../library/data/mappers/simplified_artist.mapper';
+import { TrackEntity } from '../../domain/entities/track.entity';
 
-export class UserTracksMapper implements IModelMapper<UserTrackEntity> {
+export class TrackMapper implements IModelMapper<TrackEntity> {
   private simplifiedArtistMapper = new SimplifiedArtistMapper();
   private simplifiedAlbumMapper = new SimplifiedAlbumMapper();
 
-  fromObjectToEntity(object: Record<string, unknown>): UserTrackEntity {
+  fromObjectToEntity(object: Record<string, unknown>): TrackEntity {
     return {
       id: typeSafe.string(object.id),
-      hash: typeSafe.string(object.hash),
       trackId: typeSafe.string(object.trackId),
       title: typeSafe.string(object.title),
+      hash: typeSafe.string(object.hash),
       artist: this.simplifiedArtistMapper.fromObjectToEntity(
         object.artist as Record<string, unknown>,
       ),
       album: this.simplifiedAlbumMapper.fromObjectToEntity(
         object.album as Record<string, unknown>,
       ),
-      libraryItem: typeSafe.string(object.libraryItem),
-      createdAt: new Date(typeSafe.string(object.createdAt)),
     };
   }
 
-  fromEntityToObject(entity: UserTrackEntity): Record<string, unknown> {
+  fromEntityToObject(entity: TrackEntity): Record<string, unknown> {
     return {
       id: entity.id,
-      hash: entity.hash,
       trackId: entity.trackId,
       title: entity.title,
+      hash: entity.hash,
       artist: this.simplifiedArtistMapper.fromEntityToObject(entity.artist),
       album: this.simplifiedAlbumMapper.fromEntityToObject(entity.album),
-      libraryItem: entity.libraryItem,
-      createdAt: entity.createdAt.toISOString(),
     };
   }
 
-  fromJson(json: string): UserTrackEntity {
+  fromJson(json: string): TrackEntity {
     const object = JSON.parse(json);
     return this.fromObjectToEntity(object);
   }
 
-  toJson(entity: UserTrackEntity): string {
+  toJson(entity: TrackEntity): string {
     return JSON.stringify(this.fromEntityToObject(entity));
   }
 }

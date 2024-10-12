@@ -1,4 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IModelMapper<Entity> {
-  fromJsonDataToEntity(jsonData: Record<string, any>): Entity;
+  fromObjectToEntity(object: Record<string, unknown>): Entity;
+  fromEntityToObject(entity: Entity): Record<string, unknown>;
+  fromJson(json: string): Entity;
+  toJson(entity: Entity): string;
 }

@@ -1,11 +1,11 @@
-import { AlbumEntity } from '../../../library/domain/entities/album.entity';
-import { ArtistEntity } from '../../../library/domain/entities/artist.entity';
+import { SimplifiedAlbumEntity } from '../../../library/domain/entities/simplified_album.entity';
+import { SimplifiedArtistEntity } from '../../../library/domain/entities/simplified_artist.entity';
 
 export interface TrackEntity {
   id: string;
   trackId: string;
   title: string;
   hash: string;
-  artist: ArtistEntity;
-  album: AlbumEntity;
+  artist: SimplifiedArtistEntity;
+  album: SimplifiedAlbumEntity;
 }

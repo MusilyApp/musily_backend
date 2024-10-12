@@ -113,7 +113,7 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
       .skip(startIn)
       .sort(this.sortConverter(args?.sort ?? { createdAt: 'desc' }));
     return {
-      items: items.map((e) => this.modelMapper.fromJsonDataToEntity(e)),
+      items: items.map((e) => this.modelMapper.fromObjectToEntity(e.toJSON())),
       total: length,
     };
   }
@@ -128,7 +128,7 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
       .findOne(this.filterConverter(filters))
       .select(args?.select ?? '');
     if (item) {
-      return this.modelMapper.fromJsonDataToEntity(item.toObject());
+      return this.modelMapper.fromObjectToEntity(item.toJSON());
     }
     return null;
   }
@@ -142,7 +142,7 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
       .findOneAndUpdate(this.filterConverter(filters), updatedItem)
       .select(args?.select ?? '');
     if (item) {
-      return this.modelMapper.fromJsonDataToEntity(item.toObject());
+      return this.modelMapper.fromObjectToEntity(item.toJSON());
     }
     return null;
   }
@@ -156,14 +156,14 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
       .select(this.selectionConverter(args?.select) ?? '')
       .sort(this.sortConverter(args?.sort ?? { createdAt: 'desc' }));
     return items.map((item) =>
-      this.modelMapper.fromJsonDataToEntity(item.toObject()),
+      this.modelMapper.fromObjectToEntity(item.toJSON()),
     );
   }
 
   async findById(id: T['id']): Promise<T | null> {
     const item = await this.model.findOne({ id: id });
     if (item) {
-      return this.modelMapper.fromJsonDataToEntity(item.toObject());
+      return this.modelMapper.fromObjectToEntity(item.toJSON());
     }
     return null;
   }
@@ -183,16 +183,16 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
   ): Promise<T | null> {
     await this.model.findOneAndUpdate({ id }, updatedItem);
     const itemData = await this.model.findOne({ id });
-    if (itemData?.toObject()) {
-      return this.modelMapper.fromJsonDataToEntity(itemData?.toObject());
+    if (itemData?.toJSON()) {
+      return this.modelMapper.fromObjectToEntity(itemData?.toJSON());
     }
     return null;
   }
 
   async findByIdAndDelete(id: T['id']): Promise<T | null> {
     const deletedItem = await this.model.findOneAndDelete({ id: id });
-    if (deletedItem?.toObject()) {
-      return this.modelMapper.fromJsonDataToEntity(deletedItem?.toObject());
+    if (deletedItem?.toJSON()) {
+      return this.modelMapper.fromObjectToEntity(deletedItem?.toJSON());
     }
     return null;
   }

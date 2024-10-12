@@ -1,10 +1,10 @@
 import { TrackEntity } from '../../../data_fetch/domain/entities/track.entity';
-import { ArtistEntity } from './artist.entity';
+import { SimplifiedArtistEntity } from './simplified_artist.entity';
 
 export interface AlbumEntity {
   id: string;
   title: string;
   releaseDate: Date;
-  artist: ArtistEntity;
+  artist: SimplifiedArtistEntity;
   tracks: TrackEntity[];
 }

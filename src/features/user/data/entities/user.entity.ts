@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import crypto from "crypto";
+import crypto from 'crypto';
 
-import { IUserEntity } from "../../domain/entities/user.entity";
+import { IUserEntity } from '../../domain/entities/user.entity';
 
 export class UserEntity implements IUserEntity {
   public id: string;
@@ -26,12 +26,12 @@ export class UserEntity implements IUserEntity {
 
   static fromJson(json: Record<string, any>) {
     return new UserEntity({
-      id: json["id"],
-      name: json["name"],
-      email: json["email"],
-      password: json["password"],
-      recoveryPhrase: json["recoveryPhrase"],
-      createdAt: new Date(json["createdAt"]),
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      password: json['password'],
+      recoveryPhrase: json['recoveryPhrase'],
+      createdAt: new Date(json['createdAt']),
     });
   }
 }

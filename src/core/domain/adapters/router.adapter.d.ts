@@ -1,4 +1,4 @@
-import { UserEntity } from '../../../features/user/data/entities/user.entity';
+import { IUserEntity } from '../../../features/user/domain/entities/user.entity';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface Query {
@@ -18,8 +18,8 @@ export type Request = {
   query: Query;
   params: Params;
   headers: Headers;
-  defineUser(user: UserEntity): void;
-  user?: UserEntity | null | undefined;
+  defineUser(user: IUserEntity): void;
+  user?: IUserEntity | null | undefined;
 };
 
 export type Response = {

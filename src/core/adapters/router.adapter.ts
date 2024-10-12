@@ -1,11 +1,11 @@
 import { NextFunction } from 'express-serve-static-core';
 import express, { Request, Response } from 'express';
 import { IRouter, Middleware } from '../domain/adapters/router.adapter';
-import { UserEntity } from '../../features/user/data/entities/user.entity';
+import { IUserEntity } from '../../features/user/domain/entities/user.entity';
 
 declare module 'express' {
   interface Request {
-    user?: UserEntity;
+    user?: IUserEntity;
   }
 }
 
@@ -43,33 +43,18 @@ export class RouterAdapter implements IRouter {
     return expressMiddlewares;
   }
   get(path: string, ...middlewares: Middleware[]) {
-    this.router.get(
-      path,
-      this.convertMiddlewareToExpress(middlewares),
-    );
+    this.router.get(path, this.convertMiddlewareToExpress(middlewares));
   }
   post(path: string, ...middlewares: Middleware[]) {
-    this.router.post(
-      path,
-      this.convertMiddlewareToExpress(middlewares),
-    );
+    this.router.post(path, this.convertMiddlewareToExpress(middlewares));
   }
   patch(path: string, ...middlewares: Middleware[]) {
-    this.router.patch(
-      path,
-      this.convertMiddlewareToExpress(middlewares),
-    );
+    this.router.patch(path, this.convertMiddlewareToExpress(middlewares));
   }
   put(path: string, ...middlewares: Middleware[]) {
-    this.router.put(
-      path,
-      this.convertMiddlewareToExpress(middlewares),
-    );
+    this.router.put(path, this.convertMiddlewareToExpress(middlewares));
   }
   delete(path: string, ...middlewares: Middleware[]) {
-    this.router.delete(
-      path,
-      this.convertMiddlewareToExpress(middlewares),
-    );
+    this.router.delete(path, this.convertMiddlewareToExpress(middlewares));
   }
 }

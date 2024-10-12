@@ -1,10 +1,12 @@
-import { IAppModel } from "../../../../core/domain/adapters/app_model.adapter";
-import { ITokenGenerator } from "../../../../core/domain/adapters/token_generator.adapter";
-import { AppController } from "../../../../core/presenter/controllers/app_controller";
-import { UserEntity } from "../../../user/data/entities/user.entity";
-import { IUserEntity } from "../../../user/domain/entities/user.entity";
-import { LoginRequiredError } from "../../data/errors/login_required.error";
-import { Request, Response } from "../../../../core/domain/adapters/router.adapter";
+import { IAppModel } from '../../../../core/domain/adapters/app_model.adapter';
+import { ITokenGenerator } from '../../../../core/domain/adapters/token_generator.adapter';
+import { AppController } from '../../../../core/presenter/controllers/app_controller';
+import { IUserEntity } from '../../../user/domain/entities/user.entity';
+import { LoginRequiredError } from '../../data/errors/login_required.error';
+import {
+  Request,
+  Response,
+} from '../../../../core/domain/adapters/router.adapter';
 
 export class AuthController extends AppController {
   constructor(
@@ -36,10 +38,8 @@ export class AuthController extends AppController {
     );
     const user = await this.userModel.findById(tokenData.id);
     if (user) {
-      if (user.admin) {
-        req.defineUser(UserEntity.fromJson(user));
-        return next();
-      }
+      req.defineUser(user);
+      return next();
     }
     throw new LoginRequiredError();
   }

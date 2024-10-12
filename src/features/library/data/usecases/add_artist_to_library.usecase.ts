@@ -8,11 +8,13 @@ export class AddArtistToLibraryUsecase implements IAddArtistToLibraryUsecase {
       libraryRepository: ILibraryRepository;
     },
   ) {}
-  async exec(artist: ArtistEntity): Promise<void> {
+  async exec(artist: ArtistEntity, userId: string): Promise<void> {
     await this.props.libraryRepository.addToLibrary({
       id: crypto.randomUUID(),
       artist: artist,
+      userId: userId,
       lastTimePlayed: new Date(),
+      createdAt: new Date(),
     });
   }
 }

@@ -11,10 +11,10 @@ export abstract class AppController implements IAppController {
   ): Promise<void>;
 
   private handleHttpError(error: unknown, res: Response) {
+    console.error(error);
     if (error instanceof AppError) {
       return res.send(error.code, error.extractError());
     }
-    console.log(error);
     return res.send(500, new InternalServerError().extractError());
   }
 

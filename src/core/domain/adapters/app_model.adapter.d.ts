@@ -74,4 +74,5 @@ export interface IAppModel<T extends IAppBaseModel> {
       select?: AppModelSelection<T>;
     },
   ): Promise<PaginatedResultOutput<T>>;
+  countDocuments(filters?: AppModelFilter<T>): Promise<number>;
 }

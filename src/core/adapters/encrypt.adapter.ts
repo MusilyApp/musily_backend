@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { IEncryptAdapter } from '../domain/adapters/encrypt.adapter';
 
 export class EncryptAdapter implements IEncryptAdapter {

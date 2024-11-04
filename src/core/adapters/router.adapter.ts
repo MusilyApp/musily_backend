@@ -1,5 +1,5 @@
 import { NextFunction } from 'express-serve-static-core';
-import express, { Request, Response } from 'express';
+import * as express from 'express';
 import { IRouter, Middleware } from '../domain/adapters/router.adapter';
 import { IUserEntity } from '../../features/user/domain/entities/user.entity';
 
@@ -14,7 +14,11 @@ export class RouterAdapter implements IRouter {
 
   private convertMiddlewareToExpress(middlewares: Middleware[]) {
     const expressMiddlewares = middlewares.map((middleware) => {
-      return (req: Request, res: Response, next: NextFunction) => {
+      return (
+        req: express.Request,
+        res: express.Response,
+        next: NextFunction,
+      ) => {
         middleware(
           {
             body: req.body,

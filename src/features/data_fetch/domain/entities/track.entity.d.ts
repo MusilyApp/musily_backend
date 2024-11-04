@@ -6,6 +6,8 @@ export interface TrackEntity {
   trackId: string;
   title: string;
   hash: string;
+  highResImg?: string;
+  lowResImg?: string;
   artist: SimplifiedArtistEntity;
   album: SimplifiedAlbumEntity;
 }

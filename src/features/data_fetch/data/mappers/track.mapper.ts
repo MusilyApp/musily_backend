@@ -14,6 +14,8 @@ export class TrackMapper implements IModelMapper<TrackEntity> {
       trackId: typeSafe.string(object.trackId),
       title: typeSafe.string(object.title),
       hash: typeSafe.string(object.hash),
+      highResImg: typeSafe.stringOptional(object.highResImg),
+      lowResImg: typeSafe.stringOptional(object.lowResImg),
       artist: this.simplifiedArtistMapper.fromObjectToEntity(
         object.artist as Record<string, unknown>,
       ),
@@ -29,6 +31,8 @@ export class TrackMapper implements IModelMapper<TrackEntity> {
       trackId: entity.trackId,
       title: entity.title,
       hash: entity.hash,
+      highResImg: entity.highResImg,
+      lowResImg: entity.lowResImg,
       artist: this.simplifiedArtistMapper.fromEntityToObject(entity.artist),
       album: this.simplifiedAlbumMapper.fromEntityToObject(entity.album),
     };

@@ -200,4 +200,9 @@ export class AppModelAdapter<T extends IAppBaseModel> implements IAppModel<T> {
   async deleteMany(filters: AppModelFilter<T>): Promise<void> {
     await this.model.deleteMany(this.filterConverter(filters));
   }
+
+  async countDocuments(filters?: AppModelFilter<T>): Promise<number> {
+    const filterQuery = this.filterConverter(filters);
+    return this.model.countDocuments(filterQuery);
+  }
 }

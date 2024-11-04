@@ -1,22 +1,30 @@
 import { IModelMapper } from '../../../../core/domain/mappers/model_mapper';
 import { typeSafe } from '../../../../core/utils/type_safe.util';
-import { ArtistEntity } from '../../domain/entities/artist.entity';
+import { TrackMapper } from '../../../data_fetch/data/mappers/track.mapper';
 import { PlaylistEntity } from '../../domain/entities/playlist.entity';
-import { ArtistMapper } from './artist.mapper';
+import { SimplifiedArtistMapper } from './simplified_artist.mapper';
 
 export class PlaylistMapper implements IModelMapper<PlaylistEntity> {
-  private artistMapper = new ArtistMapper();
+  private simplifiedArtistMapper = new SimplifiedArtistMapper();
+  private trackMapper = new TrackMapper();
 
   fromObjectToEntity(object: Record<string, unknown>): PlaylistEntity {
     return {
       id: typeSafe.string(object.id),
       title: typeSafe.string(object.title),
-      track_count: typeSafe.boolean(object.track_count)
-        ? typeSafe.number(object.track_count)
+      trackCount: typeSafe.number(object.trackCount)
+        ? typeSafe.number(object.trackCount)
         : 0,
+      tracks: object.tracks
+        ? typeSafe
+            .array(object.tracks)
+            .map((e) =>
+              this.trackMapper.fromObjectToEntity(e as Record<string, unknown>),
+            )
+        : undefined,
       artist: !object.artist
-        ? null
-        : this.artistMapper.fromObjectToEntity(
+        ? undefined
+        : this.simplifiedArtistMapper.fromObjectToEntity(
             object.artist as Record<string, unknown>,
           ),
     };
@@ -26,10 +34,11 @@ export class PlaylistMapper implements IModelMapper<PlaylistEntity> {
     return {
       id: entity.id,
       title: entity.title,
-      track_count: entity.track_count,
+      track_count: entity.trackCount,
+      tracks: entity.tracks,
       artist: entity.artist
-        ? this.artistMapper.fromEntityToObject(entity.artist)
-        : null,
+        ? this.simplifiedArtistMapper.fromEntityToObject(entity.artist)
+        : undefined,
     };
   }
 

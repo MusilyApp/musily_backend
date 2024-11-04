@@ -1,3 +1,3 @@
 export interface IDeletePlaylistUsecase {
-  exec(playlistId: string): Promise<void>;
+  exec(playlistId: string, userId: string): Promise<void>;
 }

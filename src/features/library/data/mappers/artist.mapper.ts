@@ -1,8 +1,6 @@
 import { IModelMapper } from '../../../../core/domain/mappers/model_mapper';
 import { typeSafe } from '../../../../core/utils/type_safe.util';
-import { TrackMapper } from '../../../data_fetch/data/mappers/track.mapper';
 import { ArtistEntity } from '../../domain/entities/artist.entity';
-import { AlbumMapper } from './album.mapper';
 
 export class ArtistMapper implements IModelMapper<ArtistEntity> {
   // TODO fix call stack size exceed
@@ -13,6 +11,8 @@ export class ArtistMapper implements IModelMapper<ArtistEntity> {
     return {
       id: typeSafe.string(object.id),
       name: typeSafe.string(object.name),
+      highResImg: typeSafe.stringOptional(object.highResImg),
+      lowResImg: typeSafe.stringOptional(object.lowResImg),
       topTracks: object.topTracks as [],
       topAlbums: object.topAlbums as [],
       topSingles: object.topSingles as [],
@@ -23,6 +23,8 @@ export class ArtistMapper implements IModelMapper<ArtistEntity> {
     return {
       id: entity.id,
       name: entity.name,
+      highResImg: entity.highResImg,
+      lowResImg: entity.lowResImg,
       topTracks: entity.topTracks,
       topAlbums: entity.topAlbums,
       topSingles: entity.topSingles,

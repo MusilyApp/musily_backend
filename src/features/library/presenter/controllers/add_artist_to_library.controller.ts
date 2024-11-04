@@ -24,8 +24,11 @@ export class AddArtistToLibraryController extends AppController {
     }
     const artist = this.props.artistMapper.fromObjectToEntity(req.body);
 
-    await this.props.addArtistToLibraryUsecase.exec(artist, user.id);
+    const item = await this.props.addArtistToLibraryUsecase.exec(
+      artist,
+      user.id,
+    );
 
-    return res.send(200);
+    return res.send(200, item);
   }
 }

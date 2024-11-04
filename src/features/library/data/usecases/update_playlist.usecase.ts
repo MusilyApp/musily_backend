@@ -1,3 +1,4 @@
+import { UpdatePlaylistDTO } from '../../domain/dtos/update_playlist.dto';
 import { PlaylistEntity } from '../../domain/entities/playlist.entity';
 import { ILibraryRepository } from '../../domain/repositories/library.repository';
 import { IUpdatePlaylistUsecase } from '../../domain/usecases/update_playlist.usecase';
@@ -9,9 +10,13 @@ export class UpdatePlaylistUsecase implements IUpdatePlaylistUsecase {
       libraryRepository: ILibraryRepository;
     },
   ) {}
-  async exec(playlist: PlaylistEntity): Promise<PlaylistEntity> {
+  async exec(
+    playlist: UpdatePlaylistDTO,
+    userId: string,
+  ): Promise<PlaylistEntity | undefined> {
     const existingPlaylist = await this.props.libraryRepository.getLibraryItem(
       playlist.id,
+      userId,
     );
     if (!existingPlaylist) {
       throw new PlaylistNotFoundError();

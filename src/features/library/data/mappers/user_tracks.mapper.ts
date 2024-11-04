@@ -1,7 +1,5 @@
 import { IModelMapper } from '../../../../core/domain/mappers/model_mapper';
 import { typeSafe } from '../../../../core/utils/type_safe.util';
-import { SimplifiedAlbumEntity } from '../../domain/entities/simplified_album.entity';
-import { SimplifiedArtistEntity } from '../../domain/entities/simplified_artist.entity';
 import { UserTrackEntity } from '../../domain/entities/user_track.entity';
 import { SimplifiedAlbumMapper } from './simplified_album.mapper';
 import { SimplifiedArtistMapper } from './simplified_artist.mapper';
@@ -16,6 +14,8 @@ export class UserTracksMapper implements IModelMapper<UserTrackEntity> {
       hash: typeSafe.string(object.hash),
       trackId: typeSafe.string(object.trackId),
       title: typeSafe.string(object.title),
+      highResImg: typeSafe.stringOptional(object.highResImg),
+      lowResImg: typeSafe.stringOptional(object.lowResImg),
       artist: this.simplifiedArtistMapper.fromObjectToEntity(
         object.artist as Record<string, unknown>,
       ),
@@ -33,6 +33,8 @@ export class UserTracksMapper implements IModelMapper<UserTrackEntity> {
       hash: entity.hash,
       trackId: entity.trackId,
       title: entity.title,
+      highResImg: entity.highResImg,
+      lowResImg: entity.lowResImg,
       artist: this.simplifiedArtistMapper.fromEntityToObject(entity.artist),
       album: this.simplifiedAlbumMapper.fromEntityToObject(entity.album),
       libraryItem: entity.libraryItem,

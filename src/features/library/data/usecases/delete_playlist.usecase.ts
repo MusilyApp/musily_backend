@@ -8,9 +8,11 @@ export class DeletePlaylistUsecase implements IDeletePlaylistUsecase {
       libraryRepository: ILibraryRepository;
     },
   ) {}
-  async exec(playlistId: string): Promise<void> {
-    const playlist =
-      await this.props.libraryRepository.getLibraryItem(playlistId);
+  async exec(playlistId: string, userId: string): Promise<void> {
+    const playlist = await this.props.libraryRepository.getLibraryItem(
+      playlistId,
+      userId,
+    );
     if (!playlist) {
       throw new PlaylistNotFoundError();
     }

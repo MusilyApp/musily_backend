@@ -1,8 +1,10 @@
-import { ArtistEntity } from './artist.entity';
+import { TrackEntity } from '../../../data_fetch/domain/entities/track.entity';
+import { SimplifiedArtistEntity } from './simplified_artist.entity';
 
 export interface PlaylistEntity {
   id: string;
   title: string;
-  track_count: number;
-  artist: ArtistEntity | null;
+  trackCount: number;
+  tracks?: TrackEntity[];
+  artist?: SimplifiedArtistEntity;
 }

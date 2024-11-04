@@ -15,6 +15,12 @@ export const UserTracksModel = new AppModelAdapter(
     hash: {
       type: String,
     },
+    highResImg: {
+      type: String,
+    },
+    lowResImg: {
+      type: String,
+    },
     libraryItem: {
       type: String,
     },

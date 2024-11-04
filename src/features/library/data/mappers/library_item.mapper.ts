@@ -1,9 +1,6 @@
 import { IModelMapper } from '../../../../core/domain/mappers/model_mapper';
 import { typeSafe } from '../../../../core/utils/type_safe.util';
-import { AlbumEntity } from '../../domain/entities/album.entity';
-import { ArtistEntity } from '../../domain/entities/artist.entity';
 import { LibraryItemEntity } from '../../domain/entities/library_item.entity';
-import { PlaylistEntity } from '../../domain/entities/playlist.entity';
 import { AlbumMapper } from './album.mapper';
 import { ArtistMapper } from './artist.mapper';
 import { PlaylistMapper } from './playlist.mapper';

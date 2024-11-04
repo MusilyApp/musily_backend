@@ -14,7 +14,12 @@ export class AlbumMapper implements IModelMapper<AlbumEntity> {
     return {
       id: typeSafe.string(object.id),
       title: typeSafe.string(object.title),
-      releaseDate: new Date(typeSafe.string(object.releaseDate)),
+      highResImg: typeSafe.stringOptional(object.highResImg),
+      lowResImg: typeSafe.stringOptional(object.lowResImg),
+      releaseDate: new Date(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        typeSafe.string((object.releaseDate as any).toString()),
+      ),
       artist: this.artistMapper.fromObjectToEntity(
         object.artist as Record<string, unknown>,
       ),
@@ -28,6 +33,8 @@ export class AlbumMapper implements IModelMapper<AlbumEntity> {
       id: entity.id,
       title: entity.title,
       releaseDate: entity.releaseDate.toISOString(),
+      highResImg: entity.highResImg,
+      lowResImg: entity.lowResImg,
       artist: this.simplifiedArtistMapper.fromEntityToObject(entity.artist),
       tracks: entity.tracks.map((e) => this.trackMapper.fromEntityToObject(e)),
     };

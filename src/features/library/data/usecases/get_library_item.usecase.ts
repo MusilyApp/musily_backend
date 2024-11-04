@@ -8,8 +8,11 @@ export class GetLibraryItemUsecase implements IGetLibraryItemUsecase {
       libraryRepository: ILibraryRepository;
     },
   ) {}
-  async exec(id: string): Promise<LibraryItemEntity | null> {
-    const libraryItem = await this.props.libraryRepository.getLibraryItem(id);
+  async exec(id: string, userId: string): Promise<LibraryItemEntity | null> {
+    const libraryItem = await this.props.libraryRepository.getLibraryItem(
+      id,
+      userId,
+    );
     return libraryItem;
   }
 }

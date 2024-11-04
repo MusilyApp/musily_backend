@@ -1,5 +1,6 @@
+import { CreatePlaylistDTO } from '../dtos/create_playlist.dto';
 import { PlaylistEntity } from '../entities/playlist.entity';
 
 export interface ICreatePlaylistUsecase {
-  exec(playlist: PlaylistEntity, userId: string): Promise<PlaylistEntity>;
+  exec(playlist: CreatePlaylistDTO, userId: string): Promise<PlaylistEntity>;
 }

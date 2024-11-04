@@ -1,4 +1,7 @@
-import { Request, Response } from '../../../../core/domain/adapters/router.adapter';
+import {
+  Request,
+  Response,
+} from '../../../../core/domain/adapters/router.adapter';
 import { AppController } from '../../../../core/presenter/controllers/app_controller';
 import { LoginRequiredError } from '../../data/errors/login_required.error';
 

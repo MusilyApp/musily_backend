@@ -10,11 +10,7 @@ export class CreateAccountController extends AppController {
   constructor(private createAccountUsecase: ICreateAccountUsecase) {
     super();
   }
-  async controllerBusiness(
-    req: Request,
-    res: Response,
-    next?: () => void,
-  ): Promise<void> {
+  async controllerBusiness(req: Request, res: Response): Promise<void> {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {

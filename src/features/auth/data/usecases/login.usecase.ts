@@ -1,5 +1,3 @@
-import { EncryptAdapter } from '../../../../core/adapters/encrypt.adapter';
-import { TokenGeneratorAdapter } from '../../../../core/adapters/token_generator.adapter';
 import { IEncryptAdapter } from '../../../../core/domain/adapters/encrypt.adapter';
 import { ITokenGenerator } from '../../../../core/domain/adapters/token_generator.adapter';
 import { IAuthRepository } from '../../domain/repositories/auth.repository';
@@ -23,12 +21,12 @@ export class LoginUsecase implements ILoginUsecase {
     if (!user) {
       throw new InvalidCredentialsError();
     }
-    if (!(await this.props.encrypt.compare(password, user.password!))) {
+    if (!(await this.props.encrypt.compare(password, user.password ?? ''))) {
       throw new InvalidCredentialsError();
     }
     const token = this.props.tokenGenerator.sign(
       { id: user.id },
-      process.env.AUTH_HASH ?? '',
+      'b68cec109e1b620ba32a1bb7f21d48e490c253ad',
       {
         expiresIn: 604800,
       },

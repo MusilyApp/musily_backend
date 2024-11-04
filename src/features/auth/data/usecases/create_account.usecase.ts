@@ -5,7 +5,7 @@ import { IUserEntity } from '../../../user/domain/entities/user.entity';
 import { IAuthRepository } from '../../domain/repositories/auth.repository';
 import { ICreateAccountUsecase } from '../../domain/usecases/create_accout.usecase';
 import { EmailAlreadyInUseError } from '../errors/email_already_in_use.error';
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 
 export class CreateAccoutUsecase implements ICreateAccountUsecase {
   constructor(
@@ -37,7 +37,7 @@ export class CreateAccoutUsecase implements ICreateAccountUsecase {
     });
     const token = this.props.tokenGenerator.sign(
       { id: createdUser.id },
-      process.env.AUTH_HASH ?? '',
+      'b68cec109e1b620ba32a1bb7f21d48e490c253ad',
       {
         expiresIn: 604800,
       },

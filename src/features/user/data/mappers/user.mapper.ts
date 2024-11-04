@@ -10,7 +10,10 @@ export class UserMapper implements IModelMapper<UserEntity> {
       email: typeSafe.string(object.email),
       password: object.password ? typeSafe.string(object.password) : undefined,
       recoveryPhrase: typeSafe.string(object.recoveryPhrase),
-      createdAt: new Date(typeSafe.string(object.createdAt)),
+      createdAt:
+        typeof object.createdAt === 'string'
+          ? new Date(object.createdAt)
+          : (object.createdAt as Date),
     });
   }
 

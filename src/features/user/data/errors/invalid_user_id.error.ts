@@ -1,4 +1,4 @@
-import { AppError } from "../../../../core/data/exceptions/app_error.exception";
+import { AppError } from '../../../../core/data/exceptions/app_error.exception';
 
 export class InvalidUserIdError extends AppError {
   public code = 400;

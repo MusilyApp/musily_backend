@@ -34,7 +34,7 @@ export class AuthController extends AppController {
     }
     const tokenData = await this.tokenGenerator.verify(
       token,
-      process.env.AUTH_HASH ?? '',
+      'b68cec109e1b620ba32a1bb7f21d48e490c253ad',
     );
     const user = await this.userModel.findById(tokenData.id);
     if (user) {

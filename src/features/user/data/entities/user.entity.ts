@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 
 import { IUserEntity } from '../../domain/entities/user.entity';
 

@@ -7,30 +7,35 @@
   "author": "Felipe Yslaoker",
   "license": "MIT",
   "scripts": {
-    "dev:express": "nodemon src/core/infra/server/express/index.ts"
+    "dev:express": "nodemon src/core/infra/server/express/index.ts",
+    "lint": "eslint .",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
   "devDependencies": {
-    "@eslint/js": "^9.10.0",
+    "@eslint/js": "^9.12.0",
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
     "dotenv": "^16.4.5",
-    "eslint": "^9.10.0",
+    "eslint": "^9.12.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "globals": "^15.9.0",
+    "globals": "^15.11.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
-    "typescript-eslint": "^8.5.0"
+    "typescript-eslint": "^8.8.1"
   },
   "dependencies": {
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.6.2"
+    "mongoose": "^8.6.2",
+    "ytmusic-api": "^5.2.2"
   }
 }

@@ -8,6 +8,7 @@ import { LibraryItemEntity } from '../../domain/entities/library_item.entity';
 import { PlaylistEntity } from '../../domain/entities/playlist.entity';
 import { UserTrackEntity } from '../../domain/entities/user_track.entity';
 import { ILibraryRepository } from '../../domain/repositories/library.repository';
+import { LibraryItemNotFoundError } from '../errors/library_item_not_found.error';
 import { PlaylistNotFoundError } from '../errors/playlist_not_found';
 import * as crypto from 'crypto';
 
@@ -245,5 +246,22 @@ export class LibraryRepository implements ILibraryRepository {
 
   async removeFromLibrary(libraryItemId: string): Promise<void> {
     await this.props.libraryModel.findByIdAndDelete(libraryItemId);
+  }
+
+  async updateLibraryItem(
+    item: LibraryItemEntity,
+    userId: string,
+  ): Promise<LibraryItemEntity> {
+    const updatedLibraryItem = await this.props.libraryModel.findOneAndUpdate(
+      {
+        id: item.id,
+        userId: userId,
+      },
+      item,
+    );
+    if (!updatedLibraryItem) {
+      throw new LibraryItemNotFoundError();
+    }
+    return updatedLibraryItem;
   }
 }

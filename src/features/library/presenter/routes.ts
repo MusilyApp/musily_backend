@@ -2,6 +2,7 @@ import { RouterAdapter } from '../../../core/adapters/router.adapter';
 import { authMiddleware } from '../../auth/presenter/middlewares/auth.middleware';
 import { TrackMapper } from '../../data_fetch/data/mappers/track.mapper';
 import { ArtistMapper } from '../data/mappers/artist.mapper';
+import { LibraryItemMapper } from '../data/mappers/library_item.mapper';
 import { PlaylistMapper } from '../data/mappers/playlist.mapper';
 import { LibraryRepository } from '../data/repositories/library.repository';
 import { AddAlbumToLibaryUsecase } from '../data/usecases/add_album_to_library.usecase';
@@ -14,6 +15,7 @@ import { GetLibraryItemUsecase } from '../data/usecases/get_library_item.usecase
 import { RemoveAlbumFromLibraryUsecase } from '../data/usecases/remove_album_from_library.usecase';
 import { RemoveArtistFromLibraryUsecase } from '../data/usecases/remove_artist_from_library.usecase';
 import { RemoveTracksFromPlaylistUsecase } from '../data/usecases/remove_tracks_from_playlist.usecase';
+import { UpdateLibraryItemUsecase } from '../data/usecases/update_library_item.usecase';
 import { UpdatePlaylistUsecase } from '../data/usecases/update_playlist.usecase';
 import { AddAlbumToLibraryController } from './controllers/add_album_to_library.controller';
 import { AddArtistToLibraryController } from './controllers/add_artist_to_library.controller';
@@ -25,6 +27,7 @@ import { GetLibraryItemController } from './controllers/get_library_item.control
 import { RemoveAlbumFromLibraryController } from './controllers/remove_album_from_library.controller';
 import { RemoveArtistFromLibraryController } from './controllers/remove_artist_from_library.controller';
 import { RemoveTracksFromPlaylistController } from './controllers/remove_tracks_from_playlist.controller';
+import { UpdateLibraryItemController } from './controllers/update_library_item.controller';
 import { UpdatePlaylistController } from './controllers/update_playlist.controller';
 import { LibraryItemModel } from './models/library_item.model';
 import { UserTracksModel } from './models/user_tracks.model';
@@ -37,6 +40,7 @@ const userTrackModel = UserTracksModel;
 const artistMapper = new ArtistMapper();
 const playlistMapper = new PlaylistMapper();
 const trackMapper = new TrackMapper();
+const libraryItemMapper = new LibraryItemMapper();
 
 const libraryRepository = new LibraryRepository({
   libraryModel,
@@ -174,6 +178,17 @@ libraryRoutes.delete('/delete_playlist/:id', authMiddleware(), (req, res) => {
     deletePlaylistUsecase,
   });
   return deletePlaylistController.handleRequest(req, res);
+});
+
+libraryRoutes.patch('/update_library_item', authMiddleware(), (req, res) => {
+  const updateLibraryItemUsecase = new UpdateLibraryItemUsecase({
+    libraryRepository,
+  });
+  const updateLibraryItemController = new UpdateLibraryItemController({
+    updateLibraryItemUsecase,
+    libraryItemMapper,
+  });
+  return updateLibraryItemController.handleRequest(req, res);
 });
 
 export default libraryRoutes;

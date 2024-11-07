@@ -27,4 +27,8 @@ export interface ILibraryRepository {
   deletePlaylist(playlistId: string): Promise<void>;
   addToLibrary(libraryItem: LibraryItemEntity): Promise<LibraryItemEntity>;
   removeFromLibrary(libraryItemId: string): Promise<void>;
+  updateLibraryItem(
+    item: LibraryItemEntity,
+    userId: string,
+  ): Promise<LibraryItemEntity>;
 }

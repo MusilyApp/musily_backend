@@ -40,6 +40,6 @@ export class CreatePlaylistController extends AppController {
       userId,
     );
 
-    return res.send(200, createdPlaylist);
+    return res.send(201, createdPlaylist);
   }
 }

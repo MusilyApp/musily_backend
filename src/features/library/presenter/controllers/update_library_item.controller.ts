@@ -21,7 +21,6 @@ export class UpdateLibraryItemController extends AppController {
       userId: req.user?.id,
       ...req.body,
     });
-    console.log(libraryItem);
     const updatedLibraryItem = await this.props.updateLibraryItemUsecase.exec(
       libraryItem,
       req.user?.id ?? '',

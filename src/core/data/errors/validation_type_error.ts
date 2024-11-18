@@ -1,7 +1,7 @@
 import { AppError } from '../exceptions/app_error.exception';
 
 export class ValidationTypeError extends AppError {
-  error = 'validation_type_error';
+  error = 'invalid_request';
   message?: string;
   code = 500;
 

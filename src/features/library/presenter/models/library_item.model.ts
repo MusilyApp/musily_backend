@@ -10,7 +10,6 @@ export const LibraryItemModel = new AppModelAdapter(
     id: {
       type: String,
       required: true,
-      unique: true,
     },
     userId: {
       type: String,

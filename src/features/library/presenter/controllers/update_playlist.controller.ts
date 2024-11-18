@@ -26,6 +26,7 @@ export class UpdatePlaylistController extends AppController {
 
     const updatedPlaylist = await this.props.updatePlaylistUsecase.exec(
       playlist,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       req.user!.id,
     );
 

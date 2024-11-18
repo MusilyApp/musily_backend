@@ -21,7 +21,14 @@ export class LibraryRepository implements ILibraryRepository {
   ) {}
 
   async getLibrary(userId: string): Promise<LibraryItemEntity[]> {
-    const library = await this.props.libraryModel.find({ userId });
+    const library = await this.props.libraryModel.find(
+      { userId },
+      {
+        sort: {
+          lastTimePlayed: 'desc',
+        },
+      },
+    );
     return library;
   }
 
@@ -56,7 +63,14 @@ export class LibraryRepository implements ILibraryRepository {
       const trackCount = await this.props.userTrackModel.countDocuments({
         libraryItem: id,
       });
-      const tracks = await this.props.userTrackModel.find({ libraryItem: id });
+      const tracks = await this.props.userTrackModel.find(
+        { libraryItem: id },
+        {
+          sort: {
+            createdAt: 'asc',
+          },
+        },
+      );
       libraryItem.playlist.trackCount = trackCount;
       libraryItem.playlist.tracks = tracks;
     }
@@ -226,8 +240,12 @@ export class LibraryRepository implements ILibraryRepository {
   async addToLibrary(
     libraryItem: LibraryItemEntity,
   ): Promise<LibraryItemEntity> {
-    const currentItem = await this.props.libraryModel.findById(libraryItem.id);
+    const currentItem = await this.props.libraryModel.findOne({
+      id: libraryItem.id,
+      userId: libraryItem.userId,
+    });
     if (currentItem) {
+      console.log(currentItem);
       return currentItem;
     }
     const item = await this.props.libraryModel.create(libraryItem);
